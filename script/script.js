@@ -1,4 +1,38 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Create custom cursor
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
+
+    // Optimize cursor movement with requestAnimationFrame
+    let cursorX = 0;
+    let cursorY = 0;
+    let requestId = null;
+
+    document.addEventListener('mousemove', (e) => {
+        cursorX = e.clientX;
+        cursorY = e.clientY;
+
+        if (!requestId) {
+            requestId = requestAnimationFrame(updateCursor);
+        }
+    });
+
+    function updateCursor() {
+        const x = cursorX;
+        const y = cursorY;
+        cursor.style.left = x + 'px';
+        cursor.style.top = y + 'px';
+        requestId = null;
+    }
+
+    // Optimize hover detection
+    const interactiveElements = document.querySelectorAll('a, button, input, .skill-item');
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        element.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
     const words = ["Kevin Jing", "A Founder", "A Lifelong Learner"];
     let i = 0;
     let j = 0;
@@ -139,6 +173,28 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!matchFound) {
             console.log('No matches found for:', searchTerm);
         }
+    });
+
+    // Add smooth scrolling for navigation
+    document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+
+            if (targetSection) {
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = targetSection.offsetTop - navbarHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Update URL without the hash
+                window.history.pushState('', '', window.location.pathname);
+            }
+        });
     });
 });
 

@@ -15,23 +15,49 @@ body {
     position: fixed;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 1rem 2rem;
     background: rgba(0, 0, 0, 0.8);
     color: white;
     z-index: 1000;
+    gap: 3rem;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
-    margin: 0 1rem;
+    font-size: 1.1rem;
     transition: color 0.3s;
+    padding: 0.5rem;
 }
 
 .nav-links a:hover {
     color: #007bff;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    transition: all 0.3s;
+    padding: 0.5rem;
+}
+
+.social-icons a:hover {
+    opacity: 1;
+    transform: translateY(-3px);
 }
 
 .contact-info {
@@ -46,10 +72,11 @@ body {
     position: relative;
     background-image: url('../assets/hero-bg.jpg');
     background-size: cover;
-    background-position: center top;
+    background-position: center 40%;
     display: flex;
     align-items: center;
     color: white;
+    padding-top: 80px;
 }
 
 .hero-content {
@@ -286,6 +313,7 @@ body {
 .skills {
     padding: 4rem 2rem;
     background: #fff;
+    margin-bottom: 4rem;
 }
 
 .skills h2 {
@@ -620,4 +648,36 @@ body {
 .search-container.active input {
     background: white;
     box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+/* Custom Cursor Styles */
+body {
+    cursor: none;
+}
+
+.custom-cursor {
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(128, 128, 128, 0.8);
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease;
+    mix-blend-mode: difference;
+}
+
+.custom-cursor.hover {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(128, 128, 128, 0.9);
+}
+
+/* Add hover states for interactive elements */
+a:hover, button:hover, input:hover, .skill-item:hover {
+    cursor: none;
 }
