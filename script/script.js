@@ -75,6 +75,109 @@ document.addEventListener("DOMContentLoaded", function() {
 
     type();
 
+    // Magnetic effect for social icons
+    const magneticButtons = document.querySelectorAll('.social-icons a');
+    magneticButtons.forEach(button => {
+        button.addEventListener('mousemove', (e) => {
+            const position = button.getBoundingClientRect();
+            const x = e.pageX - position.left - position.width / 2;
+            const y = e.pageY - position.top - position.height / 2;
+
+            button.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'translate(0px, 0px)';
+        });
+    });
+
+    // Replace the splitText function and its initialization (around lines 94-127)
+    const splitText = (element) => {
+        // Hide the original text immediately
+        element.style.visibility = 'hidden';
+        const text = element.textContent;
+        const words = text.split(' ');
+
+        // Clear the element after getting its text
+        requestAnimationFrame(() => {
+            element.textContent = '';
+            element.style.visibility = 'visible';
+
+            words.forEach((word, wordIndex) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.style.display = 'inline-block';
+
+                const chars = word.split('');
+                chars.forEach((char, charIndex) => {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.style.setProperty('--delay', `${wordIndex * 0.1 + charIndex * 0.03}s`);
+                    span.className = 'char';
+                    wordSpan.appendChild(span);
+                });
+
+                element.appendChild(wordSpan);
+
+                if (wordIndex < words.length - 1) {
+                    const space = document.createElement('span');
+                    space.innerHTML = '&nbsp;';
+                    space.style.display = 'inline-block';
+                    element.appendChild(space);
+                }
+            });
+
+            // Add animation class after all elements are created
+            requestAnimationFrame(() => {
+                element.classList.add('animate-heading');
+            });
+        });
+    };
+
+    // Create a new observer for headings
+    const headingObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                if (!element.dataset.split) {
+                    splitText(element);
+                    element.dataset.split = 'true';
+                    // Add animation class to trigger the animation
+                    element.classList.add('animate-heading');
+                }
+                headingObserver.unobserve(element);
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    // Initialize the observer for h2 elements
+    document.querySelectorAll('h2').forEach(heading => {
+        headingObserver.observe(heading);
+    });
+
+    // 3D card effect for skill items
+    const cards = document.querySelectorAll('.skill-item');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+    });
+
     const experienceObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -208,6 +311,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         });
+    });
+
+    // Add page transition effect
+    document.addEventListener('DOMContentLoaded', () => {
+        const transition = document.createElement('div');
+        transition.className = 'page-transition';
+        document.body.appendChild(transition);
     });
 });
 

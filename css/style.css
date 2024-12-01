@@ -79,7 +79,6 @@ body {
     align-items: center;
     color: white;
     padding-top: 80px;
-    margin-top: 0;
 }
 
 .hero-content {
@@ -102,7 +101,6 @@ body {
     max-height: 40vh;
     background: #ffffff;
     overflow: hidden;
-    margin-top: 0;
 }
 
 .about-content {
@@ -110,10 +108,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
 }
 
 .about-content h2 {
@@ -127,13 +122,11 @@ body {
 
 .about-content p {
     font-size: 0.95rem;
-    line-height: 1.8;
+    line-height: 1.5;
     color: #555;
     max-width: 90%;
-    text-align: justify;
+    text-align: center;
     margin: 0 auto;
-    hyphens: auto;
-    word-spacing: -0.05em;
 }
 
 .about-image {
@@ -168,7 +161,6 @@ body {
 .experience {
     padding: 4rem 2rem;
     background: #f8f9fa;
-    margin-top: 64px;
 }
 
 .experience h2 {
@@ -249,7 +241,6 @@ body {
     position: relative;
     background: #000;
     color: white;
-    margin-top: 64px;
 }
 
 .education-parallax {
@@ -327,7 +318,7 @@ body {
 .skills {
     padding: 4rem 2rem;
     background: #fff;
-    margin-top: 64px;
+    margin-bottom: 4rem;
 }
 
 .skills h2 {
@@ -462,7 +453,6 @@ body {
     justify-content: center;
     align-items: center;
     background: #000;
-    margin-top: 64px;
 }
 
 .volunteering-parallax {
@@ -707,4 +697,98 @@ html {
     html {
         scroll-behavior: smooth;
     }
+}
+
+/* Add after line 427 (after the existing @keyframes skillFadeIn) */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left {
+    transform: translateX(-100px);
+}
+
+.reveal-right {
+    transform: translateX(100px);
+}
+
+h2 .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(1em);
+    animation: none;
+    visibility: hidden;
+}
+
+.animate-heading .char {
+    animation: fadeInUp 0.5s forwards;
+    animation-delay: var(--delay);
+    visibility: visible;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 9999;
+    transform-origin: bottom;
+    animation: pageTransition 1.5s ease-in-out forwards;
+}
+
+@keyframes pageTransition {
+    0% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0);
+    }
+}
+
+/* Add letter spacing to all h2 elements */
+h2 {
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    white-space: pre-wrap;
+    visibility: hidden;
+}
+
+/* Center the about section h2 */
+.about-content h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h2 .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(1em);
+    animation: none;
+    visibility: hidden;
+}
+
+.animate-heading {
+    visibility: visible;
+}
+
+.animate-heading .char {
+    animation: fadeInUp 0.5s forwards;
+    animation-delay: var(--delay);
+    visibility: visible;
 }
