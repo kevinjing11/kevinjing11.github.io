@@ -40,4 +40,35 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     type();
+
+    const experienceObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                experienceObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
+
+    const educationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            } else {
+                entry.target.classList.remove('visible');
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
+
+    document.querySelectorAll('.experience-item').forEach((item) => {
+        experienceObserver.observe(item);
+    });
+
+    document.querySelectorAll('.education-item').forEach((item) => {
+        educationObserver.observe(item);
+    });
 });
