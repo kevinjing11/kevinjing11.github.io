@@ -79,6 +79,7 @@ body {
     align-items: center;
     color: white;
     padding-top: 80px;
+    margin-top: 0;
 }
 
 .hero-content {
@@ -101,6 +102,7 @@ body {
     max-height: 40vh;
     background: #ffffff;
     overflow: hidden;
+    margin-top: 0;
 }
 
 .about-content {
@@ -166,6 +168,7 @@ body {
 .experience {
     padding: 4rem 2rem;
     background: #f8f9fa;
+    margin-top: 64px;
 }
 
 .experience h2 {
@@ -246,6 +249,7 @@ body {
     position: relative;
     background: #000;
     color: white;
+    margin-top: 64px;
 }
 
 .education-parallax {
@@ -323,7 +327,7 @@ body {
 .skills {
     padding: 4rem 2rem;
     background: #fff;
-    margin-bottom: 4rem;
+    margin-top: 64px;
 }
 
 .skills h2 {
@@ -458,6 +462,7 @@ body {
     justify-content: center;
     align-items: center;
     background: #000;
+    margin-top: 64px;
 }
 
 .volunteering-parallax {
