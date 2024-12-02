@@ -913,6 +913,11 @@ h2 .char {
     }
 
     /* Education Section Mobile */
+    .education-parallax {
+        background-size: cover;
+        background-position: center;
+    }
+
     .education h2 {
         font-size: 2.5rem;
     }
@@ -934,6 +939,12 @@ h2 .char {
 
     .volunteering h2 {
         font-size: 2.5rem;
+    }
+
+    /* Footer Section Mobile */
+    .footer-parallax {
+        background-size: cover;
+        background-position: center;
     }
 }
 
