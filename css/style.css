@@ -939,12 +939,6 @@ h2 .char {
     .volunteering h2 {
         font-size: 2.5rem;
     }
-
-    /* Footer Section Mobile */
-    .footer-parallax {
-        background-size: cover;
-        background-position: center;
-    }
 }
 
 /* Additional Mobile Optimizations */
@@ -1025,7 +1019,7 @@ h2 .char {
         left: 0;
         width: 100%;
         height: 100vh;
-
+        background: rgba(0, 0, 0, 0.95);
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -1041,5 +1035,14 @@ h2 .char {
     .social-icons {
         position: static;
         margin-top: 2rem;
+    }
+}
+
+/* Remove parallax effect on mobile */
+@media screen and (max-width: 768px) {
+    .education-parallax,
+    .volunteering-parallax,
+    .footer-parallax {
+        background-attachment: scroll;
     }
 }
