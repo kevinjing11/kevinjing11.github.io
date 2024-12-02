@@ -5,6 +5,12 @@
     box-sizing: border-box;
 }
 
+body, html {
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
 body {
     font-family: 'Lato', sans-serif;
     line-height: 1.6;
@@ -27,6 +33,7 @@ body {
     display: flex;
     align-items: center;
     gap: 2rem;
+    background: linear-gradient(135deg, rgba(0,0,0,0.97), rgba(0,0,0,0.93));
 }
 
 .nav-links a {
@@ -519,6 +526,7 @@ body {
     color: white;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     z-index: 2;
+    white-space: nowrap;
 }
 
 .volunteering-grid {
@@ -824,4 +832,204 @@ h2 .char {
     animation: fadeInUp 0.5s forwards;
     animation-delay: var(--delay);
     visibility: visible;
+}
+
+/* Mobile Navigation */
+@media screen and (max-width: 768px) {
+    .navbar {
+        height: 68px !important;
+        padding: 0 1rem !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        justify-content: center;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .hamburger {
+        display: flex !important;
+        position: absolute
+        right: 1rem !important;
+        z-index: 1001;
+        margin-top: 0.3rem !important;
+    }
+
+    .social-icons {
+        display: flex !important;
+        gap: 2rem !important;
+        position: static !important;
+        right: auto !important;
+        margin: auto !important;
+    }
+
+    /* Hero Section Mobile */
+    .hero-content {
+        margin: 0 auto;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    /* About Section Mobile */
+    .about {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        max-height: none;
+    }
+
+    .about-content {
+        padding: 2rem 1rem;
+    }
+
+    .about-image {
+        height: 30vh;
+    }
+
+    /* Experience Section Mobile */
+    .experience-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .company-logo {
+        margin: 0 auto;
+    }
+
+    /* Education Section Mobile */
+    .education h2 {
+        font-size: 2.5rem;
+    }
+
+    .education-content {
+        padding: 2rem 1rem;
+    }
+
+    /* Skills Section Mobile */
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Volunteering Section Mobile */
+    .volunteering-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .volunteering h2 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Additional Mobile Optimizations */
+@media screen and (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 2rem !important;
+        letter-spacing: 0.25rem;
+    }
+}
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: none;
+    z-index: 1002;
+}
+
+.hamburger span {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: white;
+    border-radius: 2px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+}
+
+.hamburger span:nth-child(1) {
+    top: 0px;
+}
+
+.hamburger span:nth-child(2) {
+    top: 9px;
+    width: 75%;
+}
+
+.hamburger span:nth-child(3) {
+    top: 18px;
+}
+
+.hamburger.active span:nth-child(1) {
+    top: 9px;
+    transform: rotate(135deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    width: 0%;
+}
+
+.hamburger.active span:nth-child(3) {
+    top: 9px;
+    transform: rotate(-135deg);
+}
+
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        /* Hide by default */
+        display: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .social-icons {
+        position: static;
+        margin-top: 2rem;
+    }
 }

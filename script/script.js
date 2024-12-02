@@ -321,6 +321,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     initParallaxEffect();
+
+    initMobileMenu();
 });
 
 function clearHighlights() {
@@ -365,6 +367,30 @@ function initParallaxEffect() {
 
         requestAnimationFrame(() => {
             hero.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        });
+    });
+}
+
+function initMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const links = navLinks.querySelectorAll('a');
+
+    // Add index for staggered animation
+    links.forEach((link, index) => {
+        link.style.setProperty('--index', index);
+    });
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
         });
     });
 }
