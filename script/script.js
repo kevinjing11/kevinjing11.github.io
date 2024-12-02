@@ -323,6 +323,57 @@ document.addEventListener("DOMContentLoaded", function() {
     initParallaxEffect();
 
     initMobileMenu();
+
+    const timelineItems = document.querySelectorAll('.timeline-item');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    timelineItems.forEach(item => {
+        observer.observe(item);
+    });
+
+    const timeline = document.querySelector('.timeline');
+    const progressBar = document.createElement('div');
+    progressBar.classList.add('timeline_progress');
+    timeline.appendChild(progressBar);
+
+    function updateProgress() {
+        const timelineRect = timeline.getBoundingClientRect();
+        const timelineStart = timelineRect.top;
+        const timelineEnd = timelineRect.bottom;
+        const windowHeight = window.innerHeight;
+
+        let progress = (windowHeight - timelineStart) / (timelineEnd - timelineStart);
+        progress = Math.min(Math.max(progress, 0), 1);
+
+        progressBar.style.height = `${progress * 100}%`;
+
+        timelineItems.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            const itemMiddle = rect.top + rect.height / 2;
+
+            if (itemMiddle < windowHeight * 0.8) {
+                item.classList.add('active');
+                item.classList.add('visible');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    timelineItems.forEach(item => {
+        experienceObserver.observe(item);
+    });
+
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
 });
 
 function clearHighlights() {
