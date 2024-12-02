@@ -103,9 +103,9 @@ document.addEventListener("DOMContentLoaded", function() {
             element.textContent = '';
             element.style.visibility = 'visible';
 
-            words.forEach((word, wordIndex) => {
-                const wordSpan = document.createElement('span');
-                wordSpan.style.display = 'inline-block';
+        words.forEach((word, wordIndex) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.style.display = 'inline-block';
 
                 const chars = word.split('');
                 chars.forEach((char, charIndex) => {
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     wordSpan.appendChild(span);
                 });
 
-                element.appendChild(wordSpan);
+            element.appendChild(wordSpan);
 
                 if (wordIndex < words.length - 1) {
                     const space = document.createElement('span');
@@ -319,6 +319,8 @@ document.addEventListener("DOMContentLoaded", function() {
         transition.className = 'page-transition';
         document.body.appendChild(transition);
     });
+
+    initParallaxEffect();
 });
 
 function clearHighlights() {
@@ -352,4 +354,17 @@ function highlightMatches(element, searchTerm) {
         }
     }
     console.log('Found and highlighted', matchCount, 'matches');
+}
+
+function initParallaxEffect() {
+    const hero = document.querySelector('.hero-content');
+
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = (e.clientX - window.innerWidth / 2) * 0.015;
+        const mouseY = (e.clientY - window.innerHeight / 2) * 0.015;
+
+        requestAnimationFrame(() => {
+            hero.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        });
+    });
 }
