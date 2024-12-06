@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, {
-        threshold: 0.2,
-        rootMargin: '50px'
+        threshold: 0.15,
+        rootMargin: '70px'
     });
 
     // Add reveal classes
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const isInViewport = rect.top <= window.innerHeight && rect.bottom >= 0;
 
         if (isInViewport) {
-            // Stagger the animations
-            triggerAnimation(element, index * 200);
+            // Increased stagger delay from 200ms to 300ms
+            triggerAnimation(element, index * 300);
         } else {
             // Observe elements not in viewport
             observer.observe(element);
