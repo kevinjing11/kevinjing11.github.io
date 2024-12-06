@@ -1,0 +1,414 @@
+/* Music Page Styles */
+body {
+    background-color: #000;
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+/* Add background image to the main content */
+.music-content-wrapper {
+    position: relative;
+    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('../assets/music_bg.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    margin-top: -80px;
+}
+
+
+
+/* Footer background */
+.music-footer {
+    position: relative;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 4rem 2rem;
+    text-align: center;
+    margin-top: -6rem;
+}
+
+.music-footer .copyright {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+}
+
+/* Header Styling */
+.music-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.back-button {
+    color: white;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.back-button:hover {
+    transform: translateX(-5px);
+}
+
+.social-icons {
+    display: flex;
+    gap: 2rem;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+}
+
+/* Platform Navigation */
+.music-platform-nav {
+    padding-top: 120px !important;
+    padding: 2rem !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 6rem !important;
+    background: transparent !important;
+}
+
+.music-platform-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem !important;
+    letter-spacing: 0.2em;
+    transition: all 0.3s ease !important;
+    position: relative;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    opacity: 0.8 !important;
+}
+
+.music-platform-nav i {
+    font-size: 1.5rem !important;
+}
+
+.music-platform-nav a:hover {
+    opacity: 1 !important;
+    transform: translateY(-2px) !important;
+}
+
+.music-platform-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -5px;
+    left: 50%;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.music-platform-nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Featured Section */
+.featured-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.featured-section h2 {
+    font-size: 1.2rem !important;
+    letter-spacing: 0.2em;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    margin-bottom: 2rem;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+
+/* Add responsive adjustments */
+@media screen and (max-width: 768px) {
+    .featured-section {
+        padding: 2rem 1rem;
+    }
+
+    .video-container {
+        padding-bottom: 75%; /* Slightly taller on mobile */
+    }
+}
+
+/* Platform Sections */
+.platform-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto 6rem;
+}
+
+.platform-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.platform-title i {
+    font-size: 2.5rem !important;
+    color: white;
+}
+
+.platform-title h2 {
+    font-size: 1.5rem !important;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0 !important;
+    visibility: visible !important;
+}
+
+.music-grid {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.music-grid iframe {
+    width: 100%;
+    min-height: 500px;
+    background: transparent;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .platform-section {
+        padding: 3rem 1rem;
+        margin-bottom: 4rem;
+    }
+
+    .music-grid iframe {
+        min-height: 600px;
+    }
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .music-header {
+        padding: 1.5rem 2rem;
+    }
+
+    .music-platform-nav {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 2rem !important;
+        margin-top: 100px;
+    }
+
+    .platform-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .platform-section h2 {
+        font-size: 1rem !important;
+    }
+
+    .platform-section h2 i {
+        font-size: 2rem !important;
+    }
+
+    .music-grid iframe {
+        min-height: 300px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .music-header {
+        padding: 1rem;
+    }
+
+    .social-icons {
+        gap: 1rem;
+    }
+
+    .back-button {
+        font-size: 0.7rem;
+    }
+
+    .platform-section h2,
+    .platform-section h2 a,
+    .music-platform-nav a {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+}
+
+/* Platform Icons */
+.platform-section h2 i {
+    font-size: 2.5rem !important;
+}
+
+.platform-section h2 a {
+    color: white !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.platform-section h2 a:hover {
+    opacity: 0.8 !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Add specific platform icons */
+#spotify h2::before {
+    content: '\f1bc' !important;
+    font-family: 'Font Awesome 6 Brands' !important;
+    font-size: 2.5rem !important;
+    margin-right: 1.5rem !important;
+}
+
+#apple-music h2::before {
+    content: '\f179' !important;
+    font-family: 'Font Awesome 6 Brands' !important;
+    font-size: 2.5rem !important;
+    margin-right: 1.5rem !important;
+}
+
+#soundcloud h2::before {
+    content: '\f1be' !important;
+    font-family: 'Font Awesome 6 Brands' !important;
+    font-size: 2.5rem !important;
+    margin-right: 1.5rem !important;
+}
+
+#youtube-channel h2::before {
+    content: '\f167' !important;
+    font-family: 'Font Awesome 6 Brands' !important;
+    font-size: 2.5rem !important;
+    margin-right: 1.5rem !important;
+}
+
+/* Cursor visibility */
+* {
+    cursor: default !important;
+}
+
+a, button, [role="button"] {
+    cursor: pointer !important;
+}
+
+.platform-title a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.platform-title a:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.platform-title h2 {
+    margin: 0;
+}
+
+.platform-section:last-child {
+    margin-bottom: 0; /* Remove margin from last section */
+    padding-bottom: 6rem; /* Add some padding for the copyright text */
+}
+
+.copyright {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+    color: white;
+}
+
+/* Smooth Reveal Animations */
+.reveal {
+    opacity: 0;
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left {
+    transform: translateX(-70px);
+}
+
+.reveal-right {
+    transform: translateX(70px);
+}
+
+.reveal-up {
+    transform: translateY(50px);
+}
+
+.reveal-visible {
+    opacity: 1;
+    transform: translate(0);
+}
+
+/* Platform title hover effect */
+.platform-title {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.platform-title:hover {
+    transform: translateY(-8px);
+}
