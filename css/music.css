@@ -17,7 +17,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh;
-    margin-top: -80px;
+    margin-top: -100px;
 }
 
 
@@ -32,6 +32,7 @@ body {
     padding: 4rem 2rem;
     text-align: center;
     margin-top: -6rem;
+    background: transparent !important;
 }
 
 .music-footer .copyright {
@@ -50,7 +51,7 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1000;
+    z-index: 1;
     box-sizing: border-box;
 }
 
@@ -91,8 +92,12 @@ body {
     padding: 2rem !important;
     display: flex !important;
     justify-content: center !important;
-    gap: 6rem !important;
+    gap: 4rem !important;
     background: transparent !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    max-width: 800px !important;
 }
 
 .music-platform-nav a {
@@ -102,9 +107,8 @@ body {
     letter-spacing: 0.2em;
     transition: all 0.3s ease !important;
     position: relative;
-    display: flex !important;
-    align-items: center !important;
-    gap: 1rem !important;
+    display: inline-block !important;
+    padding: 0.5rem 1rem !important;
     opacity: 0.8 !important;
 }
 
@@ -115,6 +119,7 @@ body {
 .music-platform-nav a:hover {
     opacity: 1 !important;
     transform: translateY(-2px) !important;
+    cursor: pointer !important;
 }
 
 .music-platform-nav a::after {
@@ -122,7 +127,7 @@ body {
     position: absolute;
     width: 0;
     height: 1px;
-    bottom: -5px;
+    bottom: 0;
     left: 50%;
     background-color: white;
     transition: all 0.3s ease;
@@ -374,11 +379,15 @@ a, button, [role="button"] {
 
 .copyright {
     text-align: center;
-    padding: 2rem;
+    padding: 1rem !important;
     font-size: 0.7rem;
     letter-spacing: 0.1em;
     opacity: 0.8;
     color: white;
+    background: transparent !important;
+    position: relative;
+    z-index: 1;
+    margin: 0 !important;
 }
 
 /* Smooth Reveal Animations */
@@ -411,4 +420,93 @@ a, button, [role="button"] {
 
 .platform-title:hover {
     transform: translateY(-8px);
+}
+
+/* Mobile-specific adjustments */
+@media screen and (max-width: 768px) {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .music-header {
+        padding: 1rem;
+        top: 0;
+        position: fixed;
+        z-index: 1000;
+        background: transparent !important; /* Force remove any background */
+        background-color: transparent !important;
+        background-image: none !important;
+    }
+}
+
+    .music-platform-nav {
+        margin-top: 6rem !important;
+        padding: 1rem 2rem !important;
+        gap: 2rem !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    #spotify {
+        margin-top: 4rem !important;
+        text-align: center;
+    }
+
+    .featured-section {
+        padding-top: 3rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .platform-section {
+        padding: 2rem 1rem !important;
+        margin-bottom: 2rem !important;
+    }
+
+    .music-grid iframe {
+        min-height: 400px !important;
+    }
+
+    .platform-section:first-of-type {
+        padding-top: 2rem !important;
+    }
+
+    /* Adjust space between consecutive sections */
+    .platform-section + .platform-section {
+        padding-top: 1.5rem !important;
+    }
+}
+
+/* Smaller screens */
+@media screen and (max-width: 480px) {
+    .music-header {
+        padding: 0.8rem;
+        background: transparent !important;
+        background-color: transparent !important;
+        background-image: none !important;
+    }
+
+    .music-platform-nav {
+        margin-top: 7rem !important;
+        gap: 1.5rem !important;
+    }
+
+    #spotify {
+        margin-top: 5rem !important;
+    }
+
+    .featured-section {
+        padding-top: 3.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .music-grid iframe {
+        min-height: 300px !important;
+    }
+
+    .platform-section {
+        padding: 1.5rem 0.5rem !important;
+    }
 }
