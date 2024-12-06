@@ -1046,3 +1046,13 @@ h2 .char {
         background-attachment: scroll;
     }
 }
+
+.music-link {
+    color: #fff;
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+}
+
+.music-link:hover {
+    opacity: 0.8;
+}
