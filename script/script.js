@@ -323,6 +323,9 @@ document.addEventListener("DOMContentLoaded", function() {
     initParallaxEffect();
 
     initMobileMenu();
+
+    // Add HotTakes background animation
+    createHotTakesBackground();
 });
 
 function clearHighlights() {
@@ -393,4 +396,62 @@ function initMobileMenu() {
             navLinks.classList.remove('active');
         });
     });
+}
+
+function createHotTakesBackground() {
+    // Find the HotTakes experience item
+    const experienceItems = document.querySelectorAll('.experience-item');
+    let hottakesItem = null;
+
+    experienceItems.forEach(item => {
+        if (item.querySelector('h3').textContent.includes('HOTTAKES')) {
+            hottakesItem = item;
+            item.classList.add('hottakes-item');
+        }
+    });
+
+    if (!hottakesItem) return;
+
+    // Create the background container
+    const backgroundContainer = document.createElement('div');
+    backgroundContainer.className = 'hottakes-background';
+
+    // Configuration
+    const numRows = 5;
+    const logosPerRow = 10;
+    const logoSrc = 'assets/hottakes-logo-long.png'; // Using existing logo
+
+    // Create rows of logos
+    for (let i = 0; i < numRows; i++) {
+        const row = document.createElement('div');
+        row.className = 'logo-row';
+
+        // Create a single container with double the logos for seamless looping
+        const logoContainer = document.createElement('div');
+        logoContainer.className = 'logo-container';
+
+        // Alternate direction for each row
+        if (i % 2 === 0) {
+            logoContainer.classList.add('move-left');
+        } else {
+            logoContainer.classList.add('move-right');
+        }
+
+        // Add logos to the container (double the amount for seamless looping)
+        for (let j = 0; j < logosPerRow * 2; j++) {
+            const logo = document.createElement('img');
+            logo.src = logoSrc;
+            logo.alt = 'HotTakes Logo';
+            logoContainer.appendChild(logo);
+        }
+
+        row.appendChild(logoContainer);
+        backgroundContainer.appendChild(row);
+
+        // Adjust animation speed slightly for each row to create more visual interest
+        logoContainer.style.animationDuration = (25 + i * 5) + 's';
+    }
+
+    // Add the background container to the HotTakes item
+    hottakesItem.insertBefore(backgroundContainer, hottakesItem.firstChild);
 }
