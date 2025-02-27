@@ -12,8 +12,13 @@ body, html {
 }
 
 body {
-    font-family: 'Lato', sans-serif;
-    line-height: 1.6;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.8;
+    color: #333;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
 }
 
 /* Navigation */
@@ -95,8 +100,9 @@ body {
 }
 
 .hero-content h1 {
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: 700;
+    letter-spacing: -0.02em;
     margin-bottom: 1rem;
 }
 
@@ -804,8 +810,10 @@ h2 .char {
 
 /* Add letter spacing to all h2 elements */
 h2 {
-    letter-spacing: 0.5rem;
+    letter-spacing: 0.2rem;
     text-transform: uppercase;
+    font-weight: 400;
+    font-size: 2.2rem;
     white-space: pre-wrap;
     visibility: hidden;
 }
