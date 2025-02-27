@@ -29,28 +29,52 @@ h1, h2, h3, h4 {
     justify-content: center;
     align-items: center;
     padding: 1rem 2rem;
-    background: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(20, 20, 30, 0.85));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
     z-index: 1000;
+    animation: fadeInDown 0.5s ease forwards;
 }
 
 .nav-links {
     display: flex;
     align-items: center;
     gap: 2rem;
-
 }
 
 .nav-links a {
+    position: relative;
     color: white;
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.3s;
     padding: 0.5rem;
+    opacity: 0;
+    animation: fadeInDown 0.5s ease forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #3498db; /* Blue underline color - you can change this */
+    transition: width 0.3s ease;
+    transform-origin: left;
 }
 
 .nav-links a:hover {
-    color: #007bff;
+    color: #3498db; /* Match the underline color */
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .social-icons {
@@ -1134,4 +1158,25 @@ h2 .char {
 .experience-item.hottakes-item {
     position: relative;
     overflow: hidden;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar {
+    animation: fadeInDown 0.5s ease forwards;
+}
+
+.nav-links a {
+    opacity: 0;
+    animation: fadeInDown 0.5s ease forwards;
+    animation-delay: calc(0.1s * var(--i));
 }
