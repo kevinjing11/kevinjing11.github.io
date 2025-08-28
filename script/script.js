@@ -41,16 +41,26 @@ document.addEventListener("DOMContentLoaded", function() {
     let isWaiting = false;
     const typewriterElement = document.getElementById("typewriter");
 
+    // Render typed text; when the active word is "A Producer", wrap it in a link
+    function renderTypewriter(text, wordIndex) {
+        const isProducer = words[wordIndex] === "A Producer";
+        if (isProducer) {
+            typewriterElement.innerHTML = `<a href="https://okjmusic.com" target="_blank" rel="noopener" class="typewriter-link">${text}</a>`;
+        } else {
+            typewriterElement.textContent = text;
+        }
+    }
+
     function type() {
         if (i < words.length) {
             if (!isDeleting && !isWaiting && j < words[i].length + 1) {
                 currentWord = words[i].substring(0, j++);
-                typewriterElement.textContent = currentWord;
+                renderTypewriter(currentWord, i);
             }
 
             if (isDeleting && j > 0) {
                 currentWord = words[i].substring(0, j--);
-                typewriterElement.textContent = currentWord;
+                renderTypewriter(currentWord, i);
             }
 
             if (j === words[i].length + 1 && !isDeleting && !isWaiting) {

@@ -93,6 +93,25 @@ h1, h2, h3, h4 {
     margin-left: auto;
 }
 
+.social-icons a.okj-icon {
+    display: flex;
+    align-items: center;
+}
+
+.social-icons a.okj-icon img {
+    height: 22px; /* roughly matches 1.5rem icon visual height */
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1); /* ensure it appears white on dark bg if needed */
+    opacity: 0.9;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-icons a.okj-icon:hover img {
+    transform: translateY(-3px);
+    opacity: 1;
+}
+
 .social-icons a:hover {
     opacity: 1;
     transform: translateY(-3px);
@@ -189,6 +208,12 @@ h1, h2, h3, h4 {
     white-space: nowrap;
     overflow: hidden;
     animation: blink-caret 0.75s step-end infinite;
+}
+
+/* Ensure the typewriter link inherits hero styles */
+.typewriter-link {
+    color: inherit;
+    text-decoration: underline;
 }
 
 @keyframes blink-caret {
