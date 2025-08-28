@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
         element.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
 
-    const words = ["Kevin Jing", "A Founder", "A Lifelong Learner"];
+    const words = ["Kevin Jing", "A Founder", "A Lifelong Learner", "A Producer"];
     let i = 0;
     let j = 0;
     let currentWord = "";
@@ -143,6 +143,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     element.dataset.split = 'true';
                     // Add animation class to trigger the animation
                     element.classList.add('animate-heading');
+                }
+                // After the about heading animates in, ensure the paragraph fits in its container
+                if (element.closest('.about-content')) {
+                    requestAnimationFrame(() => {
+                        fitAboutText();
+                    });
                 }
                 headingObserver.unobserve(element);
             }
@@ -326,6 +332,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Add HotTakes background animation
     createHotTakesBackground();
+
+    // Ensure the About section text fits within the fixed-height container
+    fitAboutText();
+    const debouncedFit = debounce(fitAboutText, 150);
+    window.addEventListener('resize', debouncedFit);
+    window.addEventListener('orientationchange', debouncedFit);
 });
 
 function clearHighlights() {
@@ -454,4 +466,83 @@ function createHotTakesBackground() {
 
     // Add the background container to the HotTakes item
     hottakesItem.insertBefore(backgroundContainer, hottakesItem.firstChild);
+}
+
+// Ensure the About section paragraph scales down to fit within the fixed 40vh section
+function fitAboutText() {
+    const about = document.querySelector('.about');
+    const content = document.querySelector('.about-content');
+    if (!about || !content) return;
+
+    // Only apply on desktop/tablet where the section is fixed at 40vh
+    if (window.innerWidth <= 768) return;
+
+    const heading = content.querySelector('h2');
+    const paragraph = content.querySelector('p');
+    if (!paragraph) return;
+
+    // Reset sizes to computed defaults before measuring
+    paragraph.style.fontSize = '';
+    paragraph.style.lineHeight = '';
+    if (heading) heading.style.fontSize = '';
+
+    const baseParaSize = parseFloat(getComputedStyle(paragraph).fontSize) || 16;
+    const baseLineHeight = parseFloat(getComputedStyle(paragraph).lineHeight) || baseParaSize * 1.6;
+    const baseHeadingSize = heading ? parseFloat(getComputedStyle(heading).fontSize) : 0;
+
+    // Quick exit if it already fits
+    const fitsNow = () => content.getBoundingClientRect().bottom <= about.getBoundingClientRect().bottom - 4;
+    if (fitsNow()) return;
+
+    // Binary search best scale between 0.7 and 1.0
+    let low = 0.7;
+    let high = 1.0;
+    let best = low;
+
+    for (let k = 0; k < 18; k++) { // ~2^-18 precision, plenty
+        const mid = (low + high) / 2;
+
+        // Apply trial scale
+        paragraph.style.fontSize = (baseParaSize * mid) + 'px';
+        paragraph.style.lineHeight = (baseLineHeight * mid) + 'px';
+        if (heading && baseHeadingSize) {
+            // Keep heading closer to paragraph size so it remains visually prominent
+            const headingScale = Math.max(0.65, mid * 0.98);
+            heading.style.fontSize = (baseHeadingSize * headingScale) + 'px';
+        }
+
+        if (fitsNow()) {
+            best = mid;
+            low = mid; // try larger
+        } else {
+            high = mid; // need smaller
+        }
+    }
+
+    // Try a slight bump up for legibility, keeping within fit constraints
+    let finalScale = Math.min(1.0, best * 1.035);
+    paragraph.style.fontSize = (baseParaSize * finalScale) + 'px';
+    paragraph.style.lineHeight = (baseLineHeight * finalScale) + 'px';
+    if (heading && baseHeadingSize) {
+        let headingScale = Math.max(0.65, finalScale * 0.99);
+        heading.style.fontSize = (baseHeadingSize * headingScale) + 'px';
+    }
+
+    if (!fitsNow()) {
+        finalScale = Math.min(1.0, best * 1.02);
+        paragraph.style.fontSize = (baseParaSize * finalScale) + 'px';
+        paragraph.style.lineHeight = (baseLineHeight * finalScale) + 'px';
+        if (heading && baseHeadingSize) {
+            let headingScale = Math.max(0.65, finalScale * 0.99);
+            heading.style.fontSize = (baseHeadingSize * headingScale) + 'px';
+        }
+    }
+}
+
+function debounce(fn, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
+    };
 }

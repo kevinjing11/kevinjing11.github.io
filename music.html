@@ -162,6 +162,19 @@
     .glass.rounded-4.overflow-hidden {
       padding: 0;
     }
+
+    /* Intro overlay styles */
+    #okj-intro { position: fixed; inset: 0; background:#000; z-index: 9999; display:flex; align-items:center; justify-content:center; opacity:1; visibility:visible; transition: opacity .6s ease, visibility .6s ease; }
+    #okj-intro.okj-done { opacity:0; visibility:hidden; }
+    .okj-intro__frame { position:relative; width:min(92vw, 1200px); aspect-ratio:16/9; }
+    .okj-intro__logo, .okj-intro__photo { position:absolute; inset:0; margin:auto; max-width:100%; max-height:100%; width:80%; height:auto; object-fit:contain; }
+    .okj-intro__logo { opacity:1; filter: drop-shadow(0 0 0 rgba(0,255,255,0)); transform: scale(1); }
+    .okj-intro__photo { opacity:0; clip-path: circle(0% at 50% 50%); filter: blur(6px); }
+    @keyframes okjGlowPulse { 0%{ filter: drop-shadow(0 0 0 rgba(0,255,255,0)); transform: scale(1);} 50%{ filter: drop-shadow(0 0 28px rgba(0,255,255,.9)); transform: scale(1.04);} 100%{ filter: drop-shadow(0 0 0 rgba(0,255,255,0)); transform: scale(1.02);} }
+    @keyframes okjRevealPhoto { 0%{ clip-path: circle(0% at 50% 50%); opacity:0; filter: blur(6px); transform: scale(1.04);} 70%{ opacity:1; filter: blur(2px);} 100%{ clip-path: circle(140% at 50% 50%); opacity:1; filter: blur(0); transform: scale(1);} }
+    #okj-intro.okj-play .okj-intro__logo { animation: okjGlowPulse 1.6s ease-in-out 2 .1s forwards; }
+    #okj-intro.okj-play .okj-intro__photo { animation: okjRevealPhoto 1.3s cubic-bezier(.2,.65,.2,1) 2.0s forwards; }
+    @media (prefers-reduced-motion: reduce) { #okj-intro, #okj-intro * { animation: none !important; transition: none !important; } .okj-intro__photo { opacity:1; clip-path:none; filter:none; } }
   </style>
 
   <!-- React + Babel -->
@@ -170,6 +183,14 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
+  <!-- Intro overlay: logo -> photo transition -->
+  <div id="okj-intro" aria-hidden="true">
+    <div class="okj-intro__frame">
+      <!-- You can replace these with your preferred logo + glasses photo assets -->
+      <img class="okj-intro__logo" src="assets/OKJ_Glow.png" alt="OKJ logo" />
+      <img class="okj-intro__photo" src="assets/OKJ_Banner_Final.png" alt="OKJ photo" />
+    </div>
+  </div>
   <div id="root"></div>
 
   <!-- Bootstrap + AOS + Swiper scripts -->
@@ -291,6 +312,46 @@
 
     const root = createRoot(document.getElementById('root'));
     root.render(<App />);
+  </script>
+
+  <!-- Intro overlay controller (vanilla JS) -->
+  <script>
+    (function () {
+      var intro = document.getElementById('okj-intro');
+      if (!intro) return;
+      var prefersReduced = false;
+      try { prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+
+      function start() {
+        if (prefersReduced) {
+          intro.classList.add('okj-done');
+          return;
+        }
+        intro.classList.add('okj-play');
+        var photo = intro.querySelector('.okj-intro__photo');
+        var onEnd = function (e) {
+          if (e && e.animationName !== 'okjRevealPhoto') return;
+          intro.classList.add('okj-done');
+          photo && photo.removeEventListener('animationend', onEnd);
+          setTimeout(function(){ if (intro && intro.parentNode) intro.parentNode.removeChild(intro); }, 650);
+        };
+        if (photo) {
+          photo.addEventListener('animationend', onEnd);
+          // Also ensure we don't get stuck if image fails to load
+          photo.addEventListener('error', function(){ setTimeout(onEnd, 1200); });
+        } else {
+          setTimeout(onEnd, 1200);
+        }
+      }
+      window.addEventListener('load', start);
+      // Expose a quick replay for debugging
+      window.okjIntroReplay = function () {
+        document.body.appendChild(intro);
+        intro.classList.remove('okj-done');
+        void intro.offsetWidth; // reflow
+        start();
+      };
+    })();
   </script>
 </body>
 </html>
